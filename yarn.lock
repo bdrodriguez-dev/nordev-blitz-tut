@@ -3951,7 +3951,7 @@
     "resolve" "^1.20.0"
     "tsconfig-paths" "^3.11.0"
 
-"eslint-plugin-jsx-a11y@^6.4.1":
+"eslint-plugin-jsx-a11y@^6.4.1", "eslint-plugin-jsx-a11y@6.4.1":
   "integrity" "sha512-0rGPJBbwHoGNPU73/QCLP/vveMlM1b1Z9PponxO87jfr6tuH5ligXbDT6nHSSzBC8ovX2Z+BQu7Bk5D/Xgq9zg=="
   "resolved" "https://registry.npmjs.org/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-6.4.1.tgz"
   "version" "6.4.1"
