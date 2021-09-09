@@ -1,13 +1,13 @@
-import { Suspense } from "react"
-import { Head, Link, useRouter, useQuery, useMutation, useParam, BlitzPage, Routes } from "blitz"
-import Layout from "app/core/layouts/Layout"
-import getProduct from "app/products/queries/getProduct"
-import updateProduct from "app/products/mutations/updateProduct"
-import { ProductForm, FORM_ERROR } from "app/products/components/ProductForm"
+import { Suspense } from "react";
+import { Head, Link, useRouter, useQuery, useMutation, useParam, BlitzPage, Routes } from "blitz";
+import Layout from "app/core/layouts/Layout";
+import getProduct from "app/products/queries/getProduct";
+import updateProduct from "app/products/mutations/updateProduct";
+import { ProductForm, FORM_ERROR } from "app/products/components/ProductForm";
 
 export const EditProduct = () => {
-  const router = useRouter()
-  const productId = useParam("productId", "number")
+  const router = useRouter();
+  const productId = useParam("productId", "number");
   const [product, { setQueryData }] = useQuery(
     getProduct,
     { id: productId },
@@ -15,8 +15,8 @@ export const EditProduct = () => {
       // This ensures the query never refreshes and overwrites the form data while the user is editing.
       staleTime: Infinity,
     }
-  )
-  const [updateProductMutation] = useMutation(updateProduct)
+  );
+  const [updateProductMutation] = useMutation(updateProduct);
 
   return (
     <>
@@ -40,21 +40,22 @@ export const EditProduct = () => {
               const updated = await updateProductMutation({
                 id: product.id,
                 ...values,
-              })
-              await setQueryData(updated)
-              router.push(Routes.ShowProductPage({ productId: updated.id }))
+              });
+              // @ts-ignore
+              await setQueryData(updated);
+              router.push(Routes.ShowProductPage({ productId: updated.id }));
             } catch (error) {
-              console.error(error)
+              console.error(error);
               return {
                 [FORM_ERROR]: error.toString(),
-              }
+              };
             }
           }}
         />
       </div>
     </>
-  )
-}
+  );
+};
 
 const EditProductPage: BlitzPage = () => {
   return (
@@ -69,10 +70,10 @@ const EditProductPage: BlitzPage = () => {
         </Link>
       </p>
     </div>
-  )
-}
+  );
+};
 
-EditProductPage.authenticate = true
-EditProductPage.getLayout = (page) => <Layout>{page}</Layout>
+EditProductPage.authenticate = true;
+EditProductPage.getLayout = (page) => <Layout>{page}</Layout>;
 
-export default EditProductPage
+export default EditProductPage;
