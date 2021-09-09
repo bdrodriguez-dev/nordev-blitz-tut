@@ -1,14 +1,14 @@
-import { Suspense } from "react"
-import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation, Routes } from "blitz"
-import Layout from "app/core/layouts/Layout"
-import getProduct from "app/products/queries/getProduct"
-import deleteProduct from "app/products/mutations/deleteProduct"
+import { Suspense } from "react";
+import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation, Routes } from "blitz";
+import Layout from "app/core/layouts/Layout";
+import getProduct from "app/products/queries/getProduct";
+import deleteProduct from "app/products/mutations/deleteProduct";
 
 export const Product = () => {
-  const router = useRouter()
-  const productId = useParam("productId", "number")
-  const [deleteProductMutation] = useMutation(deleteProduct)
-  const [product] = useQuery(getProduct, { id: productId })
+  const router = useRouter();
+  const productId = useParam("productId", "number");
+  const [deleteProductMutation] = useMutation(deleteProduct);
+  const [product] = useQuery(getProduct, { id: productId });
 
   return (
     <>
@@ -18,7 +18,7 @@ export const Product = () => {
 
       <div>
         <h1>Product {product.id}</h1>
-        <pre>{JSON.stringify(product, null, 2)}</pre>
+        {/*<pre>{JSON.stringify(product, null, 2)}</pre>*/}
 
         <Link href={Routes.EditProductPage({ productId: product.id })}>
           <a>Edit</a>
@@ -28,8 +28,8 @@ export const Product = () => {
           type="button"
           onClick={async () => {
             if (window.confirm("This will be deleted")) {
-              await deleteProductMutation({ id: product.id })
-              router.push(Routes.ProductsPage())
+              await deleteProductMutation({ id: product.id });
+              await router.push(Routes.ProductsPage());
             }
           }}
           style={{ marginLeft: "0.5rem" }}
@@ -38,8 +38,8 @@ export const Product = () => {
         </button>
       </div>
     </>
-  )
-}
+  );
+};
 
 const ShowProductPage: BlitzPage = () => {
   return (
@@ -54,10 +54,11 @@ const ShowProductPage: BlitzPage = () => {
         <Product />
       </Suspense>
     </div>
-  )
-}
+  );
+};
 
-ShowProductPage.authenticate = true
-ShowProductPage.getLayout = (page) => <Layout>{page}</Layout>
+// Is this how you can give access to certain pages based on auth?
+ShowProductPage.authenticate = true;
+ShowProductPage.getLayout = (page) => <Layout>{page}</Layout>;
 
-export default ShowProductPage
+export default ShowProductPage;
