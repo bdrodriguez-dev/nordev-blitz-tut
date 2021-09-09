@@ -21,16 +21,6 @@ const NewRequestPage: BlitzPage = () => {
         onSubmit={async (values) => {
           try {
             const request = await createRequestMutation(values);
-            // const request = await createRequestMutation({
-            //   // @ts-ignore
-            //   data: {
-            //     product: {
-            //       connect: {
-            //         id: 4,
-            //       },
-            //     },
-            //   },
-            // });
             await router.push(Routes.ShowRequestPage({ requestId: request.id }));
           } catch (error) {
             console.error(error);
