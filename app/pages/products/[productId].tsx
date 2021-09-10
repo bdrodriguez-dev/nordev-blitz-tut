@@ -29,7 +29,7 @@ export const Product = () => {
             Feature Requests
           </h2>
           <span className="ml-auto">
-            <Link href={Routes.NewRequestPage()}>
+            <Link href={`/requests/new?productId=${product.id}`}>
               <a className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">
                 New Request
               </a>
@@ -50,7 +50,6 @@ export const Product = () => {
                         // @ts-ignore
                         data: {
                           requestId: request.id,
-                          userId: currentUser?.id,
                         },
                       });
                     }}

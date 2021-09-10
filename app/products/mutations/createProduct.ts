@@ -2,9 +2,12 @@ import { Ctx, resolver } from "blitz";
 import db from "db";
 import { z } from "zod";
 
+// type requestType = z.infer<typeof >;
+
 const CreateProduct = z.object({
   name: z.string(),
   description: z.optional(z.string()),
+  // requests:  // string
 });
 
 export default resolver.pipe(

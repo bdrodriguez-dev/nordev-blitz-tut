@@ -14,11 +14,11 @@ export function RequestForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
     <Form<S> {...props}>
       <LabeledTextField name="title" label="Title" placeholder="Title" />
       <LabeledTextField name="description" label="Description" placeholder="Description" />
-      <LabeledSelectField name="product" label="Pick a product for your request`">
-        {products.map((product) => {
-          return <option key={product.name}>{product.name}</option>;
-        })}
-      </LabeledSelectField>
+      {/*<LabeledSelectField name="productId" label="Pick a product for your request">*/}
+      {/*  {products.map((product) => {*/}
+      {/*    return <option key={product.name} value={product.id}>{product.name}</option>;*/}
+      {/*  })}*/}
+      {/*</LabeledSelectField>*/}
     </Form>
   );
 }

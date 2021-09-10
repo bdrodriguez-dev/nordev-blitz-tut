@@ -16,7 +16,7 @@ export interface LabeledSelectFieldProps extends PropsWithoutRef<JSX.IntrinsicEl
 }
 
 export const LabeledSelectField = forwardRef<HTMLSelectElement, LabeledSelectFieldProps>(
-  ({ name, label, placeholder, outerProps, children, ...props }, ref) => {
+  ({ name, label, outerProps, children, ...props }, ref) => {
     const {
       input,
       meta: { touched, error, submitError, submitting },
