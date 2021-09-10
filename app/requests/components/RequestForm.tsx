@@ -8,7 +8,6 @@ export function RequestForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
     <Form<S> {...props}>
       <LabeledTextField name="title" label="Title" placeholder="Title" />
       <LabeledTextField name="description" label="Description" placeholder="Description" />
-      <LabeledTextField name="title" label="Title" placeholder="Title" />
     </Form>
   );
 }

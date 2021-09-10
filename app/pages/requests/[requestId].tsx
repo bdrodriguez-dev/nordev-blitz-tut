@@ -49,6 +49,11 @@ const ShowRequestPage: BlitzPage = () => {
           <a>Requests</a>
         </Link>
       </p>
+      <p>
+        <Link href={Routes.ProductsPage()}>
+          <a>Products</a>
+        </Link>
+      </p>
 
       <Suspense fallback={<div>Loading...</div>}>
         <Request />

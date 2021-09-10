@@ -39,10 +39,7 @@ export const Product = () => {
         <ul className="space-y-4 p-4 rounded bg-gray-300 m-2">
           {product.requests.map((request) => {
             return (
-              <li
-                className="flex flex-row p-4 rounded shadow bg-[#f8edeb] space-x-4"
-                key={request.id}
-              >
+              <li className="flex flex-row p-4 rounded shadow bg-white space-x-4" key={request.id}>
                 <div className="border rounded">
                   <button
                     onClick={async () => {
@@ -63,7 +60,7 @@ export const Product = () => {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-xl">{request.title}</span>
-                  <span className="text-xl">{request.description}</span>
+                  <span className="text-xs mt-2">{request.description}</span>
                 </div>
               </li>
             );
