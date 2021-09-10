@@ -12,7 +12,7 @@ const NewRequestPage: BlitzPage = () => {
       <h1>Create New Request</h1>
 
       <RequestForm
-        submitText="Create Request"
+        submitText="Add Request"
         // TODO use a zod schema for form validation
         //  - Tip: extract mutation's schema into a shared `validations.ts` file and
         //         then import and use it here

@@ -3,12 +3,18 @@ import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation, Rout
 import Layout from "app/core/layouts/Layout";
 import getProduct from "app/products/queries/getProduct";
 import deleteProduct from "app/products/mutations/deleteProduct";
+import voteOnRequest from "../../requests/mutations/voteOnRequest";
+import { useCurrentUser } from "../../core/hooks/useCurrentUser";
 
 export const Product = () => {
   const router = useRouter();
   const productId = useParam("productId", "number");
   const [deleteProductMutation] = useMutation(deleteProduct);
   const [product] = useQuery(getProduct, { id: productId });
+  const currentUser = useCurrentUser();
+
+  // @ts-ignore
+  const [voteOnRequestMutation] = useMutation(voteOnRequest);
 
   return (
     <>
@@ -38,7 +44,19 @@ export const Product = () => {
                 key={request.id}
               >
                 <div className="border rounded">
-                  <button className="flex flex-col space-y-4 p-3 rounded shadow-sm hover:bg-blue-200">
+                  <button
+                    onClick={async () => {
+                      await voteOnRequestMutation({
+                        // @ts-ignore
+                        data: {
+                          requestId: request.id,
+                          // @ts-ignore
+                          userId: currentUser.id,
+                        },
+                      });
+                    }}
+                    className="flex flex-col space-y-4 p-3 rounded shadow-sm hover:bg-blue-200"
+                  >
                     <span>123</span>
                     <span>Vote</span>
                   </button>
