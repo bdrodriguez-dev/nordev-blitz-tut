@@ -9,6 +9,7 @@ const GetVote = z.object({
 
 export default resolver.pipe(resolver.zod(GetVote), resolver.authorize(), async ({ id }) => {
   // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+  // @ts-ignore
   const vote = await db.vote.findFirst({ where: { id } });
 
   if (!vote) throw new NotFoundError();

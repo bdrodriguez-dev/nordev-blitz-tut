@@ -12,6 +12,7 @@ export default resolver.pipe(
   resolver.authorize(),
   async ({ id, ...data }) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+    // @ts-ignore
     const vote = await db.vote.update({ where: { id }, data });
 
     return vote;
