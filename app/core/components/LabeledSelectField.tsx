@@ -1,18 +1,22 @@
 import React, { forwardRef, PropsWithoutRef } from "react";
 import { useField } from "react-final-form";
+// import { useQuery } from "blitz"
+// import getProduct from "../../products/queries/getProduct"
+// import getProducts from "../../products/queries/getProducts"
 
-export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElements["input"]> {
+export interface LabeledSelectFieldProps extends PropsWithoutRef<JSX.IntrinsicElements["select"]> {
   /** Field name. */
   name: string;
   /** Field label. */
   label: string;
   /** Field type. Doesn't include radio buttons and checkboxes */
-  type?: "text" | "password" | "email" | "number";
+  type?: "text" | "password" | "email" | "number" | "project";
   outerProps?: PropsWithoutRef<JSX.IntrinsicElements["div"]>;
+  children?: React.ReactNode;
 }
 
-export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldProps>(
-  ({ name, label, outerProps, ...props }, ref) => {
+export const LabeledSelectField = forwardRef<HTMLSelectElement, LabeledSelectFieldProps>(
+  ({ name, label, placeholder, outerProps, children, ...props }, ref) => {
     const {
       input,
       meta: { touched, error, submitError, submitting },
@@ -26,7 +30,9 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
       <div {...outerProps}>
         <label>
           {label}
-          <input {...input} disabled={submitting} {...props} ref={ref} />
+          <select {...input} disabled={submitting} {...props} ref={ref}>
+            {children}
+          </select>
         </label>
 
         {touched && normalizedError && (
@@ -42,7 +48,8 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
             align-items: start;
             font-size: 1rem;
           }
-          input {
+
+          select {
             font-size: 1rem;
             padding: 0.25rem 0.5rem;
             border-radius: 3px;
@@ -56,4 +63,4 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
   }
 );
 
-export default LabeledTextField;
+export default LabeledSelectField;

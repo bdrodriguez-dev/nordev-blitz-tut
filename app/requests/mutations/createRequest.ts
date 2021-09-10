@@ -17,19 +17,12 @@ export default resolver.pipe(
   async (input, ctx: Ctx) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
     const userId = ctx.session.userId;
-    // return await db.request.create({
-    //   // @ts-ignore
-    //   data: {
 
-    //     // @ts-ignore
-    //     title: values.title,
-    //   },
-    // });
-    // @ts-ignore
     return await db.request.create({
       data: {
         ...input,
         productId: 5,
+        // @ts-ignore
         userId: userId,
       },
     });

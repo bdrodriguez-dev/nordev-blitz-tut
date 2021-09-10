@@ -1,14 +1,28 @@
-import { resolver } from "blitz"
-import db from "db"
-import { z } from "zod"
+import { Ctx, resolver } from "blitz";
+import db from "db";
+import { z } from "zod";
 
 const CreateProduct = z.object({
   name: z.string(),
-})
+  description: z.optional(z.string()),
+});
 
-export default resolver.pipe(resolver.zod(CreateProduct), resolver.authorize(), async (input) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  const product = await db.product.create({ data: input })
+export default resolver.pipe(
+  resolver.zod(CreateProduct),
+  resolver.authorize(),
+  async (input: any, ctx: Ctx) => {
+    // get user
+    const userId = ctx.session.userId;
+    return {
+      ...input,
+      userId,
+    };
+  },
+  async (input) => {
+    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+    // @ts-ignore
+    const product = await db.product.create({ data: input });
 
-  return product
-})
+    return product;
+  }
+);

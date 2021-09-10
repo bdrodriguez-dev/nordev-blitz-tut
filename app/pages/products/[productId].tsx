@@ -23,7 +23,7 @@ export const Product = () => {
       </Head>
 
       <div>
-        <h1>Product {product.id}</h1>
+        <h1 className="text-2xl">{product.name}</h1>
         <header className="flex flex-row items-center mb-4">
           <h2 className="text-base uppercase leading-tight tracking-wide font-semibold text-gray-600">
             Feature Requests
@@ -50,8 +50,7 @@ export const Product = () => {
                         // @ts-ignore
                         data: {
                           requestId: request.id,
-                          // @ts-ignore
-                          userId: currentUser.id,
+                          userId: currentUser?.id,
                         },
                       });
                     }}
