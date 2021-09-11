@@ -17,6 +17,7 @@ export default resolver.pipe(
     return await db.voteOnRequest.create({
       data: {
         ...input,
+        // @ts-ignore
         userId,
       },
     });
