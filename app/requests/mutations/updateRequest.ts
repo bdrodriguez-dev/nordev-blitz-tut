@@ -11,7 +11,6 @@ export default resolver.pipe(
   resolver.zod(UpdateRequest),
   resolver.authorize(),
   async ({ id, ...data }) => {
-    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
     // @ts-ignore
     const request = await db.request.update({ where: { id }, data });
 
