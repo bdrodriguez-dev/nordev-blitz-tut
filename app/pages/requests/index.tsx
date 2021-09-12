@@ -12,6 +12,9 @@ export const RequestsList = () => {
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
+    include: {
+      votesOnRequest: true,
+    },
   });
 
   const goToPreviousPage = () => router.push({ query: { page: page - 1 } });
@@ -21,8 +24,11 @@ export const RequestsList = () => {
     <div>
       <ul>
         {requests.map((request) => (
+          // @ts-ignore
           <li key={request.id}>
+            {/*@ts-ignore*/}
             <Link href={Routes.ShowRequestPage({ requestId: request.id })}>
+              {/*@ts-ignore*/}
               <a>{request.id}</a>
             </Link>
           </li>

@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation, Routes } from "blitz";
 import Layout from "app/core/layouts/Layout";
 import getProduct from "app/products/queries/getProduct";
@@ -9,12 +9,13 @@ import { useCurrentUser } from "../../core/hooks/useCurrentUser";
 export const Product = () => {
   const router = useRouter();
   const productId = useParam("productId", "number");
-  const [deleteProductMutation] = useMutation(deleteProduct);
-  const [product] = useQuery(getProduct, { id: productId });
-  const currentUser = useCurrentUser();
 
-  // @ts-ignore
+  const currentUser = useCurrentUser();
+  const [deleteProductMutation] = useMutation(deleteProduct);
+
   const [voteOnRequestMutation] = useMutation(voteOnRequest);
+
+  const [product] = useQuery(getProduct, { id: productId });
 
   return (
     <>
@@ -38,23 +39,34 @@ export const Product = () => {
         </header>
         <ul className="space-y-4 p-4 rounded bg-gray-300 m-2">
           {product.requests.map((request) => {
+            const hasVoted = request.votesOnRequest.find((vote) => {
+              return vote.userId === currentUser?.id;
+            });
+
             return (
               <li className="flex flex-row p-4 rounded shadow bg-white space-x-4" key={request.id}>
                 <div className="border rounded">
                   <button
                     onClick={async () => {
                       await voteOnRequestMutation({
-                        // @ts-ignore
-                        data: {
-                          requestId: request.id,
-                          // @ts-ignore
-                          userId: currentUser.id,
+                        //@ts-ignore
+                        request: {
+                          connect: {
+                            id: request.id,
+                          },
+                        },
+                        user: {
+                          connect: {
+                            id: currentUser?.id,
+                          },
                         },
                       });
                     }}
                     className="flex flex-col space-y-4 p-3 rounded shadow-sm hover:bg-blue-200"
                   >
-                    <span>123</span>
+                    {hasVoted ? "Voted" : "NotVoted"}
+                    {/*@ts-ignore*/}
+                    <span>{request.votesOnRequest.length}</span>
                     <span>Vote</span>
                   </button>
                 </div>
@@ -108,4 +120,5 @@ const ShowProductPage: BlitzPage = () => {
 ShowProductPage.authenticate = true;
 ShowProductPage.getLayout = (page) => <Layout>{page}</Layout>;
 
+// @ts-ignore
 export default ShowProductPage;

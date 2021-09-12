@@ -41,6 +41,7 @@ export const EditRequest = () => {
                 id: request.id,
                 ...values,
               });
+              // @ts-ignore
               await setQueryData(updated);
               router.push(Routes.ShowRequestPage({ requestId: updated.id }));
             } catch (error) {
